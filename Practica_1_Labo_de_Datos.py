@@ -96,4 +96,56 @@ def cuantas_materias(n):
     return contador
     
 print(cuantas_materias(5))
-        
+
+"""
+def materias_cuatrimestre(nombre_archivo, n):
+    with open(nombre_archivo, 'rt') as file:
+        for line in file:
+"""         
+ 
+import numpy as np
+a = np.array([1,2,3,4,5,6]) #matriz de 1 dimension
+b = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12]]) #matriz de 2 dimensiones           
+np.zeros() #matriz de ceros del tamaño indicado 
+np.zeros((2,3))
+
+np.linspace(0, 10, num=5) #me da 5 valores, de el cero al diez
+np.concatenate((a,b)) #concatena a con b
+
+array_ejemplo = np.array([[[0, 1, 2, 3],
+[4, 5, 6, 7]],
+[[3, 8, 10, -1],
+[0, 1, 1, 0]],
+[[3 ,3 ,3, 3],
+[5, 5, 5, 5]]])
+array_ejemplo.ndim # cantidad de dimensiones - 3
+array_ejemplo.shape # cantidad de elementos en cada eje
+(3,2,4)
+    
+array_ejemplo.size # total de entradas 3*2*4
+array_ejemplo.reshape((12,2)) # modifico la forma
+array_ejemplo.reshape((4,6))
+array_ejemplo.reshape((3,-1)) # 3 por lo que corresponda
+
+
+#Ejercicio
+import numpy as np
+def  pisar_elemento(M,e):
+    dimensiones = M.shape
+    i = 0
+    for i in range (0, dimensiones[0],1):
+        j = 0
+        for j in range(0, dimensiones[1],1):
+            if (M[i][j] == e):
+                M[i][j] = -1
+    return M
+
+M = np.array([[0, 1, 2, 3], [4, 5, 6, 7]])
+e = 2        
+print(pisar_elemento(M, e)) 
+
+#Pandas
+
+#Data Frame
+#Al principio si seteo un dataframe se me crea una columna mas que me indica cada numero de cada persona
+import pandas as pd 
