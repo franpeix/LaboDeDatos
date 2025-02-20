@@ -50,7 +50,10 @@ sns.histplot(data = data, x= 'petal width (cm)', hue = 'target', bins = nbins, s
 # %% Establecer Umbrales buenos
 
 
+data_clasif = data.copy()
+
 def clasificador_iris(fila):
+    exactitudes = []
     pet_l = fila['petal length (cm)']
     if pet_l < 2.5 :
         clase = 0
@@ -81,7 +84,7 @@ def clasificador_iris(fila):
 
 def clasificador_iris_fila(pet):
     
-    umbrales = [4,4.1,4.2,4.3,4.4]
+    umbrales = [4,4.1,4.2,4.3,4.4,4.5,4.6,4.7,4.8,4.9]
     
     exactitudes = []
     
@@ -100,11 +103,41 @@ def clasificador_iris_fila(pet):
             exactitudes.append(exactitud)
         
             
-    return data_clasif
+    return exactitudes
 
 print(clasificador_iris_fila(data))    
     
+exactitudes = clasificador_iris_fila(data)
+
+
+
+def clasificador_iris(pet):
     
+    umbrales = [4,4.1,4.2,4.3,4.4,4.5,4.6,4.7,4.8,4.9]
+    
+    exactitudes = []
+    data_clasif1 = data.copy()
+    for umbral in umbrales:
+        
+        for i, fila in data_clasif1.iterrows():
+            pet_l = fila['petal length (cm)']
+            if pet_l < 2.5:
+                clase = 0
+            elif pet_l < umbral:
+                clase = 1
+            else:
+                clase = 2
+            data_clasif1['clase_asignada'] = clase
+            exactitud = sum(data_clasif['target'] == data_clasif1['clase_asignada'])/150
+            exactitudes.append(exactitud)
+        
+            
+    return data_clasif
+
+print(clasificador_iris(data)) 
+
+data_clasif = clasificador_iris(data) 
+   
     # clases =set(data['target'])
     
     # matriz_confusion = np.zeros((3,3))
@@ -198,3 +231,100 @@ def didSurvive(row):
         return 0
     
 titanic['predicted'] = titanic.apply(lambda row: didSurvive(row), axis=1)
+
+
+
+# %%
+
+from sklearn.tree import DecisionTreeClassifier
+
+#El criterio por default es el de giny
+
+# class sklearn.tree.DecisionTreeClassifier(*,criterion='gini',splitter='best',max_depth=None,min_samples_split=2,min_samples_leaf=1,min_weigth_fraction_leaf=0.0,max_features=None,random_state=None,max_leaf_nodes=None,min_impurity_decrease=0.0,class_weight=None,ccp_alpha=0.0)
+
+arbol = DecisionTreeClassifier() #Crea un arbol de decision sin todavia preguntas
+
+arbol.fit(X,y) #Lo entrena con el fit y pasandole los datos de entrenamiento. En esta linea se toman todas las decisiones. X son todos los atributos, y es la variable respuesta, el valor verdadero (unica), que es categorica. Entrenamiento del modelo
+
+prediction = arbol.predict(X) #Se usa para predecir la linea y me genera la prediccion. Generamos las predicciones // llamamos al modelo
+# %%
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import duckdb as dd
+from matplotlib import ticker
+import seaborn as sns
+from sklearn.tree import DecisionTreeClassifier
+
+
+carpeta = "~/Descargas/"
+
+
+titanic = pd.read_csv(carpeta + 'titanic_training.csv')
+
+infoUsada = titanic[['Pclass','PassengerId','Age','SibSp', 'Parch', 'Fare']]
+y = titanic['Survived']
+
+arbol = DecisionTreeClassifier(max_depth=2)
+
+arbol.fit(infoUsada, y)
+
+Test = pd.read_csv(carpeta + 'test_titanic.csv') 
+
+infoUsadaTest = Test[['Pclass','PassengerId','Age','SibSp', 'Parch', 'Fare']]
+
+prediction = arbol.predict(infoUsadaTest)
+# %%
+
+
+#Representacion del arbol
+
+from sklearn import tree
+
+plt.figure(figsize=[20,10])
+tree.plot_tree(arbol, feature_names= ['Pclass','PassengerId','Age','SibSp', 'Parch', 'Fare'], class_names =['Survived', 'No survived'] , filled = True, rounded = True, fontsize=8)
+
+class_name =['Survived', 'No survived']
+
+
+
+
+# %%KNN: 
+
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.datasets import load_iris 
+from sklearn import metrics
+iris = load_iris(as_frame = True)
+
+data = iris.frame
+X = iris.data
+Y = iris.target
+
+
+
+
+model= KNeighborsClassifier(n_neighbors = 5) #Modelo en abstracto
+
+model.fit(X,Y) #Entreno al modelo con los datos X e Y
+Y_pred= model.predict(X) # me fijo que clases les asiga el modelo a mis datos
+
+metrics.accuracy_score(Y, Y_pred)
+metrics.confusion_matrix(Y, Y_pred)
+
+# %%
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3) #70% para train y 30% para test
+
+model= KNeighborsClassifier(n_neighbors= 5) #modelo en abstracto
+model.fit(X_train, Y_train) #Entreno el modelo con los datos X_train e Y_train
+
+Y_pred =model.predict(X_test) #me fijo que clases  les asigna el modelo a mis datos X_test
+
+print('Exactitud del modelo:', metrics.accuracy_score(Y_test, Y_pred))
+
+
+# %%
+

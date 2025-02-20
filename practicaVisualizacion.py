@@ -13,7 +13,7 @@ import numpy as np
 import seaborn as sns
 
 
-carpeta = '/home/Estudiante/Descargas/'
+carpeta = '/home/Estudiante/Descargas/borrar/'
 
 
 
@@ -192,3 +192,49 @@ sns.histplot(data = dataGentoo, x= 'bill_depth_mm', hue = 'species', bins=17, st
 
 # %% Ejercicio 5
 
+# Realizar lo mismo con las demás variables corporales de los pingüinos. A partir de estos gráficos, responder:
+# a. ¿Se puede determinar la especie de un pingüino a partir de una sola característica?
+# b. ¿Hay alguna característica que permita discernir entre especies mejor que otras?
+
+
+#Longitud del pico
+f, s = plt.subplots(2,2)
+plt.suptitle('Histogramas de las 3 especies y global', size = 'large')
+
+sns.histplot(data = data_ping, x= 'bill_length_mm', hue = 'species', bins=17, stat = 'probability', ax=s[0,0], palette = 'viridis')
+
+sns.histplot(data = dataChinstrap, x= 'bill_length_mm', hue = 'species', bins=17, stat = 'probability', ax=s[0,1], palette = 'viridis')
+
+sns.histplot(data = dataAdelie, x= 'bill_length_mm', hue = 'species', bins=17, stat = 'probability', ax=s[1,0], palette = 'viridis')
+
+sns.histplot(data = dataGentoo, x= 'bill_length_mm', hue = 'species', bins=17, stat = 'probability', ax=s[1,1], palette = 'viridis')
+
+
+#Longitud de la aleta
+f, s = plt.subplots(2,2)
+plt.suptitle('Histogramas de las 3 especies y global', size = 'large')
+
+sns.histplot(data = data_ping, x= 'flipper_length_mm', hue = 'species', bins=17, stat = 'probability', ax=s[0,0], palette = 'viridis')
+
+sns.histplot(data = dataChinstrap, x= 'flipper_length_mm', hue = 'species', bins=17, stat = 'probability', ax=s[0,1], palette = 'viridis')
+
+sns.histplot(data = dataAdelie, x= 'flipper_length_mm', hue = 'species', bins=17, stat = 'probability', ax=s[1,0], palette = 'viridis')
+
+sns.histplot(data = dataGentoo, x= 'flipper_length_mm', hue = 'species', bins=17, stat = 'probability', ax=s[1,1], palette = 'viridis')
+
+
+
+#Masa corporal
+f, s = plt.subplots(2,2)
+plt.suptitle('Histogramas de las 3 especies y global', size = 'large')
+
+sns.histplot(data = data_ping, x= 'body_mass_g', hue = 'species', bins=17, stat = 'probability', ax=s[0,0], palette = 'viridis')
+
+sns.histplot(data = dataChinstrap, x= 'body_mass_g', hue = 'species', bins=17, stat = 'probability', ax=s[0,1], palette = 'viridis')
+
+sns.histplot(data = dataAdelie, x= 'body_mass_g', hue = 'species', bins=17, stat = 'probability', ax=s[1,0], palette = 'viridis')
+
+sns.histplot(data = dataGentoo, x= 'body_mass_g', hue = 'species', bins=17, stat = 'probability', ax=s[1,1], palette = 'viridis')
+
+
+#a) No, no es posible determinar una especie por una caracteristica en especifico, pues entre ellas se superponen
