@@ -6,7 +6,9 @@ Created on Tue Feb 25 09:45:48 2025
 @author: Estudiante
 """
 
-carpeta = '~/Descargas/Clase_17_ContRLS/'
+carpeta = '~/OneDrive/Escritorio\\LaboDeDatos\\Clases\\Clase_17_18_KNN_KFolding\\'
+
+carpeta16 = '~/OneDrive/Escritorio\\LaboDeDatos\\Clases\\Clase_16_Regresion_Lineal_Simple_RLS\\'
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -19,6 +21,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn import metrics
 from sklearn.metrics import accuracy_score
+
+
 
 #La variable se mide siempre en los atributos y no en la variable explicativa 
 #Siempre con knn recortamos la variable explicativa.
@@ -34,7 +38,7 @@ from sklearn.metrics import accuracy_score
 
 
 
-data_roundup = pd.read_csv(carpeta + 'datos_roundup.txt', delim_whitespace=' ')
+data_roundup = pd.read_csv(carpeta16 + 'datos_roundup.txt', delim_whitespace=' ')
 
 datos = pd.read_csv(carpeta + 'alturas.csv', index_col=0) #Le decimos que indice de columna queda como indice, sino me lo crea automaticamente
 
@@ -56,7 +60,7 @@ mean_squared_error(Y, Y_pred) #para cada fila Y e Y_pred, calcula la diferencia,
 
 # %%Cambio cantidad de k (A mayor k, mayor cantidad de error)
 
-data_roundup = pd.read_csv(carpeta + 'datos_roundup.txt', delim_whitespace=' ')
+data_roundup = pd.read_csv(carpeta16 + 'datos_roundup.txt', delim_whitespace=' ')
 
 datos = pd.read_csv(carpeta + 'alturas.csv', index_col=0) #Le decimos que indice de columna queda como indice, sino me lo crea automaticamente
 
@@ -105,8 +109,6 @@ plt.show()
 #Cuando yo promedio mas cosas, voy a tener un modelo menos complejo(menos saltos, mas aproximado a uno lineal)
 
 # %%
-
-carpeta16 = '~/Descargas/Clase_16_RLS/'
 
 mpg = pd.read_csv(carpeta16 + "auto-mpg.xls")
 
